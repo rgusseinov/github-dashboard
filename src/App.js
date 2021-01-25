@@ -1,16 +1,22 @@
-import logo from './logo.svg';
+import React from 'react'
+import Home from './components/Home'
 import './App.css';
+import MainSearch from './components/MainSearch';
+//  const response = await fetch('https://api.github.com/repositories')
 
-function App() {
-  return (
-    <div className="App">
-      <input type="text" 
-             placeholder="Please type github account"
-             onChange={(e) => console.log(`type`, e.target.value)} 
-             className="mainSearch" 
-      />
-    </div>
-  );
+
+class App extends React.Component {
+  
+  render(){
+    return (
+      <div className="App">
+        <MainSearch />
+        <Home />
+      </div>
+    );
+  }
 }
+
+
 
 export default App;
