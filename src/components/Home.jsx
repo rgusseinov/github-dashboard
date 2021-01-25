@@ -1,16 +1,27 @@
 import React from 'react'
-// import repoItem from './repoItem'
+import RepoItem from './repoItem'
 
 
-const Home = (props) => {
+const Home = ({repos}) => {
 
+  // console.log(`repos`, repos)
   return (
     <div>
-      In home page
+      {
+        repos.map((item, key) => <RepoItem
+                                  key={key}
+                                  id={item.id}
+                                  name={item.name}
+                                  descr={item.name}
+                                  url={item.name}
+                                 />)
+      }
     </div>
   )
 
 
 }
+
+
 
 export default Home

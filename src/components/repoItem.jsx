@@ -1,17 +1,17 @@
 import React from 'react'
 
-function repoItem(){
+function RepoItem({id, name, url, descr}){
   return (
-    <div class="card">
-      <img src="..." className="card-img-top" alt="..." />
+    <div className="card">
+      <img src={url} className="card-img-top" alt={name} />
+      <h3> {name} </h3>
       <div className="card-body">
         <p className="card-text">
-            Some quick example text to build on the card title and make up 
-            the bulk of the card's content.
+            {descr}
         </p>
       </div>
     </div>
   )
 }
 
-export default repoItem
+export default RepoItem

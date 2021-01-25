@@ -4,7 +4,10 @@ function MainSearch({ handlesearchTrigger }){
 
   return(
     <div>
-      <input type="text" placeholder="Please type github account" onChange={() => handlesearchTrigger} className="mainSearch" />
+      <input type="text"
+        placeholder="Please type github account" 
+        onChange={handlesearchTrigger}
+        className="mainSearch" />
     </div>
   )
 
