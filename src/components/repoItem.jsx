@@ -1,13 +1,13 @@
 import React from 'react'
 
-function RepoItem({id, name, url, descr}){
+function RepoItem({id, name}){
   return (
     <div className="card">
-      <img src={url} className="card-img-top" alt={name} />
+      <img src="" className="card-img-top" alt={name} />
       <h3> {name} </h3>
       <div className="card-body">
         <p className="card-text">
-            {descr}
+            
         </p>
       </div>
     </div>
