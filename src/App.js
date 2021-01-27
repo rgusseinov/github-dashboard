@@ -7,51 +7,51 @@ import { apiService } from './core/apiService';
 
 class App extends React.Component {
   
-  state = {
-    filteredRepos: []
+  constructor(){
+    super()
+    
+    this.repos = [
+      {id: 1, login: 'alena', rating: 4},
+      {id: 2, login: 'andrey', rating: 5},
+      {id: 3, login: 'akif', rating: 3},
+      {id: 4, login: 'polina', rating: 2},
+      {id: 5, login: 'petr', rating: 4},
+      {id: 6, login: 'maxim', rating: 2},
+      {id: 7, login: 'anton', rating: 2},
+      {id: 8, login: 'ruslan', rating: 4},
+      {id: 9, login: 'alexey', rating: 5},
+      {id: 10, login: 'zeeshan', rating: 1},
+      {id: 11, login: 'alesha', rating: 4}
+    ]
+
+    this.state = {
+      filteredRepos: []
+    }
+  
   }
 
-  onFormSeach = (e) => {
+
+  onFormSeach = async (e) => {
     const keyword = e.target.value
+    const filteredRepos = []
+
     if (keyword.length > 2){
+      const data = await apiService.getUsers(keyword)      
+      const dataItems = data.items || []
 
-      const repos = [
-        {id: 1, login: 'alena', rating: 4},
-        {id: 2, login: 'andrey', rating: 5},
-        {id: 3, login: 'akif', rating: 3},
-        {id: 4, login: 'polina', rating: 2},
-        {id: 5, login: 'petr', rating: 4},
-        {id: 6, login: 'maxim', rating: 2},
-        {id: 7, login: 'anton', rating: 2},
-        {id: 8, login: 'ruslan', rating: 4},
-        {id: 9, login: 'alexey', rating: 5},
-        {id: 10, login: 'zeeshan', rating: 1}
-      ]
-  
-  
-  
-      const newArr = []
-      for (let i=0; i<repos.length; i++){
-        const repo = repos[i]
-  
-        if (~repo.login.indexOf(keyword)){
-
-          newArr.push({
-            id: repo.id,
-            login: repo.login
-          })
-         
-        }
-      }
-
-       this.setState({
-        filteredRepos: newArr
+      dataItems.forEach(repo => {
+        filteredRepos.push({
+          id: repo.id,
+          login: repo.login,
+          url: repo.avatar_url
+        })
       })
 
-      // console.log(`newArr:`, newArr)
     }
 
-
+    this.setState({
+      filteredRepos: filteredRepos
+    })
 
   }
 
@@ -59,6 +59,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <MainSearch handlesearchTrigger={this.onFormSeach} />
+        <h3>Count of users: {this.state.filteredRepos.length}</h3>
         <Home repos={this.state.filteredRepos}/>
       </div>
     );

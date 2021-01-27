@@ -16,10 +16,11 @@ class ApiService {
     }
   } */
 
-  async getPosts(keyword){
+  async getUsers(keyword){
 
     try {
-      const request = new Request(this.url + `${keyword}/repos`, {
+
+      const request = new Request(this.url + `?q=${keyword}`, {
         method: 'get'
       })
       const response = await fetch(request)
@@ -34,4 +35,4 @@ class ApiService {
   }
 
 }
-export const apiService = new ApiService(`https://api.github.com/users/`)
+export const apiService = new ApiService(`https://api.github.com/search/users`)

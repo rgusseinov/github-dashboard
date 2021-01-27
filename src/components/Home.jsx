@@ -11,6 +11,7 @@ const Home = ({repos}) => {
                                     key={key}
                                     id={item.id}
                                     name={item.login}
+                                    url={item.url}
                                  />)
       }
     </div>
