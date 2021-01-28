@@ -7,7 +7,7 @@ function RepoItem({id, name, url}){
       <h3> {name} </h3>
       <div className="card-body">
         <p className="card-text">
-            
+          <a href="/page"> Open link </a>  
         </p>
       </div>
     </div>

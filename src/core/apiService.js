@@ -16,10 +16,14 @@ class ApiService {
     }
   } */
 
-  async getUsers({q, per_page = 10, page = 1}){
+  async getUsers({q, page}){
 
     // https://api.github.com/search/users?q=rus&per_page=5&page=2
-    const params = `&per_page=${per_page}&page=${page}`
+    
+    let params = ''
+    if (page){
+      params = `&page=${page}`
+    }
 
     try {
 
@@ -31,6 +35,7 @@ class ApiService {
     } catch (error){
       console.error(error)
     }
+
   }
 
   removePost() {
