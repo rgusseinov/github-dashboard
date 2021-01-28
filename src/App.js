@@ -3,29 +3,18 @@ import Home from './components/Home'
 import './App.css';
 import MainSearch from './components/MainSearch';
 import { apiService } from './core/apiService';
+import Pagination from './components/Pagination';
 
 
 class App extends React.Component {
   
   constructor(){
     super()
-    
-    this.repos = [
-      {id: 1, login: 'alena', rating: 4},
-      {id: 2, login: 'andrey', rating: 5},
-      {id: 3, login: 'akif', rating: 3},
-      {id: 4, login: 'polina', rating: 2},
-      {id: 5, login: 'petr', rating: 4},
-      {id: 6, login: 'maxim', rating: 2},
-      {id: 7, login: 'anton', rating: 2},
-      {id: 8, login: 'ruslan', rating: 4},
-      {id: 9, login: 'alexey', rating: 5},
-      {id: 10, login: 'zeeshan', rating: 1},
-      {id: 11, login: 'alesha', rating: 4}
-    ]
-
+  
     this.state = {
-      filteredRepos: []
+      filteredRepos: [],
+      activePage: 1,
+      pageCount: 0
     }
   
   }
@@ -34,9 +23,10 @@ class App extends React.Component {
   onFormSeach = async (e) => {
     const keyword = e.target.value
     const filteredRepos = []
+    // https://api.github.com/search/users?q=rus&per_page=5&page=2
 
     if (keyword.length > 2){
-      const data = await apiService.getUsers(keyword)      
+      const data = await apiService.getUsers({q:keyword, per_page: 5, page: 1})    
       const dataItems = data.items || []
 
       dataItems.forEach(repo => {
@@ -61,6 +51,7 @@ class App extends React.Component {
         <MainSearch handlesearchTrigger={this.onFormSeach} />
         <h3>Count of users: {this.state.filteredRepos.length}</h3>
         <Home repos={this.state.filteredRepos}/>
+        <Pagination activePage={this.state.activePage, this.state.pageCount} />
       </div>
     );
   }

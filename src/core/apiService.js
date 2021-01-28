@@ -16,11 +16,14 @@ class ApiService {
     }
   } */
 
-  async getUsers(keyword){
+  async getUsers({q, per_page = 10, page = 1}){
+
+    // https://api.github.com/search/users?q=rus&per_page=5&page=2
+    const params = `&per_page=${per_page}&page=${page}`
 
     try {
 
-      const request = new Request(this.url + `?q=${keyword}`, {
+      const request = new Request(this.url + `?q=${q}${params}`, {
         method: 'get'
       })
       const response = await fetch(request)
