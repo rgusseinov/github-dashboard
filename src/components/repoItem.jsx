@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from "react-router-dom"
+
 
 function RepoItem({id, name, url}){
   return (
@@ -7,7 +9,7 @@ function RepoItem({id, name, url}){
       <h3> {name} </h3>
       <div className="card-body">
         <p className="card-text">
-          <a href="/page"> Open link </a>  
+          <Link to="/page"> Open link </Link>  
         </p>
       </div>
     </div>

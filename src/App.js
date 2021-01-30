@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from "react-router-dom"
+import { Route, Switch, Link } from "react-router-dom"
 import Home from './components/Home'
 import './App.css';
 import MainSearch from './components/MainSearch';
@@ -22,7 +22,6 @@ class App extends React.Component {
     }
   
   }
-
 
   onFormSeach = async (e) => {
     const keyword = e.target.value
@@ -48,22 +47,14 @@ class App extends React.Component {
         keyword: keyword
       })
 
-      // console.log(`pageN`, data)
     }
 
-    
-
-    
+  
     const pageN = Math.round(this.state.totalRepos / 10)
-    
     this.setState({
       pageCount: pageN
     })
     
-
-
-
-
   }
 
   handlePageChange = async (e) => {
@@ -74,7 +65,6 @@ class App extends React.Component {
     if (keyword.length > 2){
       const data = await apiService.getUsers({q:keyword, page: pageId})    
       const dataItems = data.items || []
-      console.log(`dataItems`, dataItems)
 
       dataItems.forEach(repo => {
         filteredRepos.push({
@@ -91,24 +81,32 @@ class App extends React.Component {
     })
 
     // console.log(`Page changed`, e.target.getAttribute('data-page'))
+  
   }
 
   render(){
     return (
       <div className="App">
-        <Pagination
-          activePage={this.state.activePage}
-          pageCount={this.state.pageCount}
-          onPageChange={this.handlePageChange}
-        />
 
-        
-        <Route path="/" render={() => <Home repos={this.state.filteredRepos} />} exact />
-        <Route path="/page" component={DetailView} exact/>
-        
+        <Switch>
+          <Route path="/page" exact>
+            <Link to="/"> Back to main page </Link>
+            <DetailView name={"Kakush"} />
+          </Route>
+          <Route path="/" exact>
+            <MainSearch handlesearchTrigger={this.onFormSeach} />
+            <h3>Count of users: {this.state.filteredRepos.length}</h3>
 
-        <MainSearch handlesearchTrigger={this.onFormSeach} />
-        <h3>Count of users: {this.state.filteredRepos.length}</h3>
+            <Pagination
+              activePage={this.state.activePage}
+              pageCount={this.state.pageCount}
+              onPageChange={this.handlePageChange}
+            />
+            
+            <Home repos={this.state.filteredRepos} />
+          </Route>
+        </Switch>
+
       </div> 
     );
   }
