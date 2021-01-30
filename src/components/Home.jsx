@@ -20,6 +20,4 @@ const Home = ({repos}) => {
 
 }
 
-
-
 export default Home

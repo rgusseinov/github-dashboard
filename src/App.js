@@ -79,9 +79,6 @@ class App extends React.Component {
       activePage: pageId,
       filteredRepos: filteredRepos
     })
-
-    // console.log(`Page changed`, e.target.getAttribute('data-page'))
-  
   }
 
   render(){
@@ -102,7 +99,7 @@ class App extends React.Component {
               pageCount={this.state.pageCount}
               onPageChange={this.handlePageChange}
             />
-            
+
             <Home repos={this.state.filteredRepos} />
           </Route>
         </Switch>
