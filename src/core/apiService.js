@@ -3,23 +3,24 @@ class ApiService {
     this.url = baseUrl
   }
 
-/*   async createPost(post){
+  async getTopRepos(){
+
     try {
-      const request = new Request(this.url + '/posts.json', {
-        method: 'post',
-        body: JSON.stringify(post)
+      const url = `https://api.github.com/search/repositories?q=a&sort=stars&per_page=10`
+      const request = new Request(url, {
+        method: 'get'
       })
       const response = await fetch(request)
       return await response.json()
     } catch (error){
       console.error(error)
     }
-  } */
+
+  }
+
 
   async getUsers({q, page}){
 
-    // https://api.github.com/search/users?q=rus&per_page=5&page=2
-    
     let params = ''
     if (page){
       params = `&page=${page}`
@@ -38,9 +39,19 @@ class ApiService {
 
   }
 
-  removePost() {
+  async getUser(q){
+    try {
+      const request = new Request(`https://api.github.com/users/${q}`, {
+        method: 'get'
+      })
+      const response = await fetch(request)
+      return await response.json()
 
+    } catch (error){
+      console.error(error)
+    }
   }
+
 
 }
 export const apiService = new ApiService(`https://api.github.com/search/users`)
