@@ -12,17 +12,16 @@ class App extends React.Component {
   
   constructor(){
     super()
-  
     this.state = {
       filteredRepos: [],
       activePage: 1,
       totalRepos: 0,
       pageCount: 0,
       keyword: ''
-    }
-  
+    }  
   }
   
+
   async componentDidMount(){
     const result = await apiService.getTopRepos()
     const dataItems = result.items || []
@@ -48,6 +47,10 @@ class App extends React.Component {
 
   newFunction(){
     console.log(`Data here`)
+  }
+
+  handleFindID(){
+    console.log(`Data`)
   }
 
   onFormSeach = async (e) => {
