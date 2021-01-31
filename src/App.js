@@ -45,7 +45,10 @@ class App extends React.Component {
     }) 
   }
 
-  
+
+  newFunction(){
+    console.log(`Data here`)
+  }
 
   onFormSeach = async (e) => {
     const keyword = e.target.value
