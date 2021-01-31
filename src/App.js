@@ -42,9 +42,10 @@ class App extends React.Component {
 
     this.setState({
       filteredRepos: filteredRepos
-    })
-    
+    }) 
   }
+
+  
 
   onFormSeach = async (e) => {
     const keyword = e.target.value
