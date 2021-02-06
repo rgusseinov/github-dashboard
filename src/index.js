@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 // import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import cities from './mocks/cities'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App cities={cities}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
