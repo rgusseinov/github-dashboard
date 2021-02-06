@@ -1,0 +1,7 @@
+.successInput {
+  border: 1px solid green;
+}
+
+.failInput {
+  border: 1px solid red;
+}

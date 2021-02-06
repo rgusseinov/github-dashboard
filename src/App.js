@@ -18,8 +18,14 @@ class App extends React.Component {
     e.preventDefault()
     const regExp = /(?=.*[A-Z])/
     
+    // console.log(`password:`, this.passwordRef.current.style)
+    
     if (regExp.test(this.passwordRef.current.value)){
-      console.log(`password:`, this.passwordRef.current.value)
+      this.passwordRef.current.classList.add('successInput')
+      this.passwordRef.current.classList.remove('failInput')
+    } else {
+      this.passwordRef.current.classList.remove('successInput')
+      this.passwordRef.current.classList.add('failInput')
     }
     
     
@@ -62,7 +68,8 @@ class App extends React.Component {
                 <p> Пароль </p>
               </div>
               <div className="col-lg-6">
-                <input id="password" ref={this.passwordRef} type="password" className="form-control" />
+                <input id="password" ref={this.passwordRef} type="password" 
+                className="form-control" />
               </div> 
 
               <div className="col-lg-4">
