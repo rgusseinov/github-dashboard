@@ -1,4 +1,8 @@
 export default [
+    {
+        "city": "",
+        "population": "0"
+    },
   {
       "city": "Артёмовск",
       "population": "1688"

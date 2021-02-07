@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import cities from './mocks/cities'
+// import DemoForm from './components/DemoForm';
 
 ReactDOM.render(
   <React.StrictMode>
     <App cities={cities}/>
+    {/* <DemoForm /> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -6,39 +6,81 @@ class App extends React.Component {
   
   constructor(props){
     super(props)
-    this.cityRef = React.createRef()
-    this.passwordRef = React.createRef()
-    this.passwordRepeatRef = React.createRef()
-    this.emailRef = React.createRef()
-    this.iAgreeRef = React.createRef()    
+    this.state = {
+      input: {},
+      errors: {}
+    }
   }
 
+  handleChange = (e) => {
+    const input = this.state.input
+    input[e.target.name] = e.target.value
+    // console.log(`input value`, input)
+    this.setState({
+      input
+    })
+  
+  }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    const regExp = /(?=.*[A-Z])/
-    
-    // console.log(`password:`, this.passwordRef.current.style)
-    
-    if (regExp.test(this.passwordRef.current.value)){
-      this.passwordRef.current.classList.add('successInput')
-      this.passwordRef.current.classList.remove('failInput')
-    } else {
-      this.passwordRef.current.classList.remove('successInput')
-      this.passwordRef.current.classList.add('failInput')
+
+    if (this.validate()){
+      console.log(`Form successfully completed!`)
+
     }
-    
-    
+
+  }
+
+  validate(){
+    let isValid = true
+    const errors = {}
+    const input = this.state.input
+
+
+    if (!input['city']){
+      isValid = false
+      errors['city'] = 'Укажите город'
+    }
+
+    if (!input['name']){
+      isValid = false
+      errors['name'] = 'Укажите имя'
+    }
+
+    if (!input['password']){
+      isValid = false
+      errors['password'] = 'Укажите пароль'
+    }
+
+    if (!input['passwordRepeat']){
+      isValid = false
+      errors['passwordRepeat'] = 'Укажите пароль еще раз'
+    }
+
+    if (!input['email']){
+      isValid = false
+      errors['email'] = 'Укажите email'
+    }
+
+    // console.log(`errors`, errors)
+    this.setState({
+      errors
+    })
+    return isValid
   }
 
   render(){
-      // console.log(`cities`, this.myRef);
-
+      const errors = this.state.errors
+      const input = this.state.input
+            
       return (
+        <React.Fragment>
         <div className="App">
           <div className="container">
 
-          <form ref={this.formRef}>
+          <form className="row g-3 needs-validation" noValidate>
+
             <div className="row">
               <div className="col-lg-6 mb-5">
                 <h1> Здравствуйте, <b>Человек 12346</b> </h1>
@@ -48,79 +90,132 @@ class App extends React.Component {
                 <p> Сменить статус </p>
               </div>            
             </div>
-  
-
+   
             <div className="row">
               <div className="col-lg-2 mb-5">
-                <p> Ваш город </p>
+                <label htmlFor="validationCustom01" className="form-label"> Ваш город </label>
               </div>
               <div className="col-lg-6">
                 <City 
-                  cities={this.props.cities} 
+                  cities={this.props.cities}
+                  city={this.state.input.city}
                   cityRef = {this.cityRef}
+                  handleChange={this.handleChange}
                 />
-              </div>            
+              <div className="invalid">{errors.city}</div>
+              </div>
             </div>
 
-
-            <div className="row">
-              <div className="col-lg-2 mb-5">
-                <p> Пароль </p>
-              </div>
-              <div className="col-lg-6">
-                <input id="password" ref={this.passwordRef} type="password" 
-                className="form-control" />
-              </div> 
-
-              <div className="col-lg-4">
-                <span> Ваш пороль должен содержать не менее 5 символов </span>
-              </div>
-
-            </div>
-
-            <div className="row">
-              <div className="col-lg-2 mb-5">
-                <p> Пароль еще раз </p>
-              </div>
-
-              <div className="col-lg-6">
-                <input id="passwordRepeat" ref={this.passwordRepeatRef} type="password" className="form-control" />
-              </div>    
-
-              <div className="col-lg-4">
-                <span> Пожалуйста, повторите пароль. Это поможем нам обезопасить </span>
-              </div>
-
-            </div>
-
-            <div className="row">
-              <div className="col-lg-2 mb-5">
-                <p> Электронная почта </p>
-              </div>
-              <div className="col-lg-6">
-                <input type="email" id="email" ref={this.emailRef} className="form-control" />
-              </div>
-              
-              <div className="col-lg-4">
-                <span> Можно изменить адрес указанный при регистрации </span>
-              </div>  
-            </div>
-
-            <div className="row">
-              <div className="col-lg-2 mb-5">
-                <p> Я согласен </p>
-              </div>
-              <div className="col-lg-6">
-                <div className="form-check">
-                  <input ref={this.iAgreeRef} className="form-check-input" type="checkbox" value="" id="iAgree"/>
-                  <label className="form-check-label" htmlFor="flexCheckDefault">
-                    Принимать актуальную информацию на email
-                  </label>
+              <div className="row">
+                <div className="col-lg-2 mb-5">
+                  <label htmlFor="validationCustom01" className="form-label"> Имя </label>
+                </div>
+                <div className="col-lg-6">
+                  <input type="text" 
+                    onChange={this.handleChange}
+                    value={this.state.input.name}
+                    className="form-control"
+                    id="validationCustom01"
+                    name="name" required
+                  />                  
+                  <div className="invalid">{errors.name}</div>                
+                </div>
+                <div className="col-lg-4">
+                  <span> Введите имя </span>
                 </div>
               </div>
 
-            </div>
 
+              <div className="row">
+                <div className="col-lg-2">
+                  <label htmlFor="validationCustom02" className="form-label"> Пароль </label>
+                </div>
+                <div className="col-lg-6">
+                  <input type="password"
+                    onChange={this.handleChange}
+                    value={this.state.input.password}
+                    className="form-control"
+                    id="validationCustom02"
+                    name="password" 
+                    required 
+                  />
+                  <div className="invalid">{errors.password}</div>
+                </div>
+                <div className="col-lg-4">
+                  <span> Ваш пороль должен содержать не менее 5 символов </span>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-2 mb-5">
+                  <label htmlFor="validationCustom02" className="form-label"> Пароль еще раз </label>
+                </div>
+                <div className="col-lg-6">
+                  <input type="passwordRepeat"
+                    onChange={this.handleChange}
+                    value={this.state.input.passwordRepeat}
+                    className="form-control"
+                    id="validationCustom02"
+                    name="passwordRepeat" 
+                    required 
+                  />
+                <div className="invalid">{errors.passwordRepeat}</div>
+                </div>
+                <div className="col-lg-4">
+                  <span> Можно изменить адрес указанный при регистрации </span>
+                </div>
+              </div>
+
+
+              <div className="row">
+                <div className="col-lg-2 mb-5">
+                  <label htmlFor="validationCustom01" className="form-label"> Электронная почта </label>
+                </div>
+                <div className="col-lg-6">
+                  <input type="email" 
+                    onChange={this.handleChange}
+                    value={this.state.input.email}
+                    className="form-control"
+                    id="validationCustom01"
+                    name="email" required
+                  />
+                  <div className="invalid">{errors.email}</div>
+                </div>
+                <div className="col-lg-4">
+                  <span> Введите email </span>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-2 mb-5">
+                  <label htmlFor="validationCustom01" className="form-label"> Я согласен </label>
+                </div>
+                <div className="col-lg-6">                  
+                  { input.iagree ?
+                    <input
+                      type="checkbox" 
+                      onChange={this.handleChange}
+                      value={this.state.input.iagree}
+                      className="form-control form-check-input"
+                      id="validationCustom01"
+                      name="iagree"
+                      checked /> : 
+                      <input
+                      type="checkbox" 
+                      onChange={this.handleChange}
+                      value={this.state.input.iagree}
+                      className="form-control form-check-input"
+                      id="validationCustom01"
+                      name="iagree" /> }
+                  <div className="invalid">{errors.iagree}</div>
+                </div>
+                <div className="col-lg-4">
+                  <span>  Принимать актуальную информацию на email  </span>
+                </div>
+              </div>
+
+
+ 
             <div className="row">
               <div className="col-lg-2">
                 <button className="btn btn-success" onClick={this.handleSubmit}> Изменить </button>
@@ -133,6 +228,7 @@ class App extends React.Component {
             </form>
           </div>
         </div> 
+        </React.Fragment>
       );
     }
 }
