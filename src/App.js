@@ -15,7 +15,6 @@ class App extends React.Component {
   handleChange = (e) => {
     const input = this.state.input
     input[e.target.name] = e.target.value
-    // console.log(`input value`, input)
     this.setState({
       input
     })
@@ -26,7 +25,8 @@ class App extends React.Component {
     e.preventDefault()
 
     if (this.validate()){
-      console.log(`Form successfully completed!`)
+      const formData = JSON.stringify(this.state.input)
+      console.log(`Form successfully completed!`, formData)
 
     }
 
@@ -79,7 +79,7 @@ class App extends React.Component {
         <div className="App">
           <div className="container">
 
-          <form className="row g-3 needs-validation" noValidate>
+          <form className="row mb-5">
 
             <div className="row">
               <div className="col-lg-6 mb-5">
